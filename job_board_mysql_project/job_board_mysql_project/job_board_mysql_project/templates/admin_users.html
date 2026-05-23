@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Users</h1>
+
+{% if filter_role %}
+    <p>Filtering by role: <strong>{{ filter_role }}</strong></p>
+{% endif %}
+
+<table class="users-table">
+    <thead>
+        <tr><th>ID</th><th>Username</th><th>Email</th><th>Role</th><th>Joined</th></tr>
+    </thead>
+    <tbody>
+    {% for u in users %}
+        <tr>
+            <td>{{ u.id }}</td>
+            <td>{{ u.username }}</td>
+            <td>{{ u.email }}</td>
+            <td>{{ u.role }}</td>
+            <td>{{ u.created_at }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

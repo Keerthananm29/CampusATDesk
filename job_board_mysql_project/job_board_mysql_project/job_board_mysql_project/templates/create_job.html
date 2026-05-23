@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="form-container">
+    <h1>Create Job</h1>
+
+    <form method="POST">
+        <input type="text" name="title" placeholder="Job Title" required>
+        <input type="text" name="company" placeholder="Company Name" required>
+        <input type="text" name="category" placeholder="Category (e.g. Engineering)">
+        <input type="text" name="location" placeholder="Location">
+        <input type="text" name="salary" placeholder="Salary">
+
+        <textarea name="description" placeholder="Description"></textarea>
+
+        <button type="submit">Create Job</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CampusAT Desk</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    {% if not current_user.is_authenticated %}
+    <div class="hero">
+        <div class="hero-inner">
+            <h1>Find jobs. Build careers.</h1>
+            <p>Connecting students with employers — search internships, part-time and full-time roles across industries.</p>
+            <div class="hero-cta">
+                <a class="btn" href="{{ url_for('register') }}">Get Started</a>
+                <a class="btn outline" href="{{ url_for('jobs') }}">Browse Jobs</a>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+<nav>
+    <h2>CampusAT Desk</h2>
+
+    <div>
+        <a href="{{ url_for('home') }}">Home</a>
+
+        {% if current_user.is_authenticated %}
+            {% if current_user.role == 'admin' %}
+                <a href="{{ url_for('admin_dashboard') }}">Admin</a>
+            {% endif %}
+            {% if current_user.role == 'recruiter' %}
+                <a href="{{ url_for('create_job') }}">Post Job</a>
+            {% endif %}
+            <a href="{{ url_for('dashboard') }}">Dashboard</a>
+            <a href="{{ url_for('jobs') }}">Browse Jobs</a>
+            <a href="{{ url_for('applications') }}">Applications</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        {% else %}
+            <a href="{{ url_for('login') }}">Login</a>
+            <a href="{{ url_for('register') }}">Register</a>
+        {% endif %}
+    </div>
+</nav>
+
+<div class="container">
+
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="flash">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+{% block content %}{% endblock %}
+
+</div>
+
+</body>
+</html>

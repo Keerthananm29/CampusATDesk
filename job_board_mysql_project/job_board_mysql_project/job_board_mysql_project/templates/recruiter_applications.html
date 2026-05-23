@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Applications for: {{ job.title }}</h1>
+
+{% for application in applications %}
+<div class="job-card">
+    <h3>{{ application.user.username }} ({{ application.user.email }})</h3>
+    <p><strong>Applied At:</strong> {{ application.applied_at }}</p>
+    <p><strong>Status:</strong> {{ application.status }}</p>
+    {% if application.interview_datetime %}
+        <p><strong>Interview:</strong> {{ application.interview_datetime }}</p>
+    {% endif %}
+
+    <form method="POST" action="{{ url_for('update_application', app_id=application.id) }}">
+        <label for="status">Update status</label>
+        <select name="status">
+            <option value="pending" {% if application.status=='pending' %}selected{% endif %}>Pending</option>
+            <option value="reviewed" {% if application.status=='reviewed' %}selected{% endif %}>Reviewed</option>
+            <option value="accepted" {% if application.status=='accepted' %}selected{% endif %}>Accepted</option>
+            <option value="rejected" {% if application.status=='rejected' %}selected{% endif %}>Rejected</option>
+            <option value="interview_scheduled" {% if application.status=='interview_scheduled' %}selected{% endif %}>Interview Scheduled</option>
+        </select>
+
+        <label for="interview">Interview datetime (optional)</label>
+        <input type="datetime-local" name="interview_datetime">
+
+        <button type="submit">Save</button>
+    </form>
+    
+</div>
+{% endfor %}
+
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>My Applications</h1>
+
+{% for application in applications %}
+<div class="job-card">
+    <h2>{{ application.job.title }}</h2>
+
+    <p><strong>Company:</strong> {{ application.job.company }}</p>
+    <p><strong>Applied At:</strong> {{ application.applied_at }}</p>
+    <p><strong>Status:</strong> {{ application.status }}</p>
+    {% if application.interview_datetime %}
+        <p><strong>Interview:</strong> {{ application.interview_datetime }}</p>
+    {% endif %}
+</div>
+{% endfor %}
+
+{% endblock %}

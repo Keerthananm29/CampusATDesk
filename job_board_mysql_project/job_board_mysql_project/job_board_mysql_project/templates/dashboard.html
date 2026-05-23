@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Student Dashboard</h1>
+<div class="card">
+    <h3>User Information</h3>
+
+    <div class="user-info">
+        {% if current_user.photo_filename %}
+            <img class="avatar small" src="{{ url_for('uploaded_file', filename=current_user.photo_filename) }}" alt="avatar">
+        {% endif %}
+        <div class="user-meta">
+            <p><strong>Username:</strong> {{ current_user.username }}</p>
+            <p><strong>Email:</strong> {{ current_user.email }}</p>
+            <p><strong>Role:</strong> {{ current_user.role }}</p>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <h3>My Applications</h3>
+    {% if applications %}
+        {% for app in applications %}
+            <div class="job-card">
+                <h4>{{ app.job.title }}</h4>
+                <p><strong>Company:</strong> {{ app.job.company }}</p>
+                <p><strong>Status:</strong> {{ app.status }}</p>
+                {% if app.interview_datetime %}
+                    <p><strong>Interview:</strong> {{ app.interview_datetime }}</p>
+                {% endif %}
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No applications yet.</p>
+    {% endif %}
+</div>
+
+{% if current_user.role == 'student' %}
+<div class="card">
+    <h3>Quick Links</h3>
+    <a href="{{ url_for('profile') }}"><button>Edit Profile / Upload Resume</button></a>
+    <a href="{{ url_for('jobs') }}"><button>Browse Jobs</button></a>
+    <a href="{{ url_for('job_categories') }}"><button>Browse Jobs by Category</button></a>
+</div>
+{% endif %}
+{% endblock %}

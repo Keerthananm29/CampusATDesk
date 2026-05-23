@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Admin Dashboard</h1>
+
+<div class="card admin-cards">
+    <div class="stat">
+        <h2>{{ total_users }}</h2>
+        <p>Total Users</p>
+    </div>
+    <div class="stat">
+        <h2>{{ total_students }}</h2>
+        <p>Total Students</p>
+    </div>
+    <div class="stat">
+        <h2>{{ total_recruiters }}</h2>
+        <p>Total Recruiters</p>
+    </div>
+</div>
+
+<div class="card">
+    <h3>Quick Links</h3>
+    <a href="{{ url_for('admin_view_users') }}"><button>View All Users</button></a>
+    <a href="{{ url_for('admin_view_users') }}?role=student"><button>View Students</button></a>
+    <a href="{{ url_for('admin_view_users') }}?role=recruiter"><button>View Recruiters</button></a>
+    <a href="{{ url_for('admin_recruiters') }}"><button>Manage Recruiters</button></a>
+    <a href="{{ url_for('admin_companies') }}"><button>Manage Companies</button></a>
+</div>
+
+{% endblock %}

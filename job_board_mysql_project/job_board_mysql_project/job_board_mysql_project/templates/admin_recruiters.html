@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Recruiters</h1>
+<a href="{{ url_for('admin_add_recruiter') }}">Add Recruiter</a>
+<table>
+    <tr><th>ID</th><th>Username</th><th>Email</th><th>Actions</th></tr>
+    {% for r in recruiters %}
+    <tr>
+        <td>{{ r.id }}</td>
+        <td>{{ r.username }}</td>
+        <td>{{ r.email }}</td>
+        <td>
+            <a href="{{ url_for('admin_edit_recruiter', user_id=r.id) }}">Edit</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

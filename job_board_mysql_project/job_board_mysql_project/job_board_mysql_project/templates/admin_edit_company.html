@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Edit Company</h1>
+<form method="POST">
+    <input name="name" value="{{ company.name }}" required />
+    <button type="submit">Save</button>
+</form>
+{% endblock %}

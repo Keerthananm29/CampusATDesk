@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Edit Profile</h1>
+
+<div class="form-container">
+    <form method="POST" enctype="multipart/form-data">
+        <div class="profile-grid">
+            <div class="profile-left">
+                {% if current_user.photo_filename %}
+                    <img class="avatar" src="{{ url_for('uploaded_file', filename=current_user.photo_filename) }}" alt="avatar">
+                {% else %}
+                    <div class="avatar placeholder">No photo</div>
+                {% endif %}
+                <label>Photo (png/jpg)</label>
+                <input type="file" name="photo">
+            </div>
+            <div class="profile-right">
+                <label>Phone</label>
+                <input type="text" name="phone" value="{{ current_user.phone or '' }}">
+
+                <label>Bio</label>
+                <textarea name="bio">{{ current_user.bio or '' }}</textarea>
+
+                <label>Resume (PDF/DOC/DOCX)</label>
+                <input type="file" name="resume">
+
+                {% if current_user.resume_filename %}
+                    <p>Uploaded: <a href="{{ url_for('uploaded_file', filename=current_user.resume_filename) }}">{{ current_user.resume_filename }}</a></p>
+                {% endif %}
+
+                <button type="submit">Save Profile</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

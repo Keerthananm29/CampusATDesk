@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Job Categories</h1>
+
+{% if categories %}
+    <ul>
+    {% for c in categories %}
+        <li><a href="{{ url_for('jobs') }}?category={{ c }}">{{ c }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No categories available.</p>
+{% endif %}
+
+{% endblock %}

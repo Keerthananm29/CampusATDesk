@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Browse Jobs</h1>
+<div class="job-list">
+{% for job in jobs %}
+<div class="job-card">
+    <h2>{{ job.title }}</h2>
+
+    <p><strong>Company:</strong> {{ job.company }}</p>
+    <p><strong>Location:</strong> {{ job.location }}</p>
+    <p><strong>Salary:</strong> {{ job.salary }}</p>
+    <p>{{ job.description }}</p>
+    {% if current_user.is_authenticated and current_user.role == 'student' %}
+    <a href="{{ url_for('apply', job_id=job.id) }}">
+        <button>Apply</button>
+    </a>
+    {% elif not current_user.is_authenticated %}
+    <a href="{{ url_for('login') }}">
+        <button>Login to Apply</button>
+    </a>
+    {% else %}
+    <div class="note">Recruiters cannot apply for jobs.</div>
+    {% endif %}
+    </div>
+{% endfor %}
+</div>
+
+{% endblock %}
